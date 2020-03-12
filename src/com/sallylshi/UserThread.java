@@ -23,7 +23,7 @@ public class UserThread extends Thread {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String r;
             while ((r = reader.readLine()) != null) {
-                chatServer.writeToUserThreads(r);
+                chatServer.writeToUserThreads(r, this);
             }
 
             chatServer.removeUser(this);
