@@ -10,14 +10,18 @@ public class ChatServer {
     HashSet<UserThread> users = new HashSet<>();
 
     public static void main(String args[]) {
+        if( args.length < 1 ) {
+            System.out.println("Not enough arguments.");
+            System.exit(0);
+        }
         ChatServer chatServer = new ChatServer();
-        chatServer.execute();
+        chatServer.execute(Integer.parseInt(args[0]));
     }
 
-    public void execute() {
-        System.out.println("Listening for connection on port 2000 ....");
+    public void execute(int port) {
+        System.out.println("Listening for connection on port " + port);
         try {
-            ServerSocket server = new ServerSocket(2000);
+            ServerSocket server = new ServerSocket(port);
             while (true) {
                 Socket socket = server.accept();
                 UserThread userThread = new UserThread(socket, this);

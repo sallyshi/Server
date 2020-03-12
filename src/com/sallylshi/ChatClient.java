@@ -8,14 +8,17 @@ public class ChatClient {
     PrintWriter printWriter;
 
     public static void main(String args[]) {
-        ChatClient chatClient = new ChatClient();
-        chatClient.execute();
-
+       if( args.length < 2 ) {
+           System.out.println("Not enough arguments.");
+           System.exit(0);
+       }
+           ChatClient chatClient = new ChatClient();
+           chatClient.execute(args[0], Integer.parseInt(args[1]));
     }
 
-    public void execute() {
+    public void execute(String hostName, int port) {
         try {
-            socket = new Socket("localhost", 2000);
+            socket = new Socket(hostName, port);
             printWriter = new PrintWriter(socket.getOutputStream(), true);
             Thread readThread = new Thread(this::read);
             readThread.start();
@@ -45,7 +48,6 @@ public class ChatClient {
         Console console = System.console();
         String c;
         while ((c = console.readLine()) != null) {
-            System.out.println("client wrote " + c);
             printWriter.println(c);
         }
     }
