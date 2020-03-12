@@ -33,9 +33,11 @@ public class ChatServer {
         }
     }
 
-    public void writeToUserThreads(String message) {
+    public void writeToUserThreads(String message, UserThread origUser) {
         for (UserThread u : users) {
-            u.write(message);
+            if(u != origUser) {
+                u.write(message);
+            }
         }
     }
 
