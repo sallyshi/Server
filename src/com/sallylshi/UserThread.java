@@ -34,7 +34,7 @@ public class UserThread extends Thread {
     }
 
     public void write(String message) {
-        printWriter.write(message);
+        printWriter.println(message);
     }
 
 

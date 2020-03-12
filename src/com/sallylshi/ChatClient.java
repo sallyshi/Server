@@ -16,7 +16,7 @@ public class ChatClient {
     public void execute() {
         try {
             socket = new Socket("localhost", 2000);
-            printWriter = new PrintWriter(socket.getOutputStream());
+            printWriter = new PrintWriter(socket.getOutputStream(), true);
             Thread readThread = new Thread(this::read);
             readThread.start();
             Thread writeThread = new Thread(this::write);
@@ -45,7 +45,8 @@ public class ChatClient {
         Console console = System.console();
         String c;
         while ((c = console.readLine()) != null) {
-            printWriter.write(c);
+            System.out.println("client wrote " + c);
+            printWriter.println(c);
         }
     }
 

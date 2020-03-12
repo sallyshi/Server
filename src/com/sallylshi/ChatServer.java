@@ -1,7 +1,6 @@
 package com.sallylshi;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashSet;
@@ -10,11 +9,9 @@ public class ChatServer {
 
     HashSet<UserThread> users = new HashSet<>();
 
-    public static void main(String args[]) throws IOException, InterruptedException {
+    public static void main(String args[]) {
         ChatServer chatServer = new ChatServer();
         chatServer.execute();
-
-
     }
 
     public void execute() {
