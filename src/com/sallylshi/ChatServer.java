@@ -12,6 +12,7 @@ public class ChatServer {
 
     public static void main(String args[]) throws IOException, InterruptedException {
         ChatServer chatServer = new ChatServer();
+        chatServer.execute();
 
 
     }
@@ -25,8 +26,6 @@ public class ChatServer {
                 UserThread userThread = new UserThread(socket, this);
                 userThread.start();
                 users.add(userThread);
-                String httpResponse = "HTTP/1.1 200 OK\r\nContent-Length: 13\r\nConnection: close\r\n\r\nHello, world!";
-                socket.getOutputStream().write(httpResponse.getBytes("UTF-8"));
             }
         } catch (IOException e) {
             e.printStackTrace();
