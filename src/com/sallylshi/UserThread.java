@@ -5,11 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.UUID;
 
 public class UserThread extends Thread {
     Socket socket;
     ChatServer chatServer;
     PrintWriter printWriter;
+    String userId;
 
     public UserThread(Socket socket, ChatServer chatServer) {
         this.socket = socket;
@@ -19,6 +21,7 @@ public class UserThread extends Thread {
     @Override
     public void run() {
         try {
+            userId = UUID.randomUUID().toString();
             printWriter = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String r;
@@ -35,6 +38,10 @@ public class UserThread extends Thread {
 
     public void write(String message) {
         printWriter.println(message);
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
 
