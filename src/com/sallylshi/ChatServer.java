@@ -55,24 +55,30 @@ public class ChatServer {
                     "insert into chatlog values (?, ?);");
             prep.setString(1, userId);
             prep.setString(2, message);
-            prep.execute();
-
+            prep.executeUpdate();
+            System.out.println("executed update chatlog");
+            Statement stat = conn.createStatement();
+            ResultSet rs = stat.executeQuery("select * from chatlog;");
+            while (rs.next()) {
+                System.out.println("userId = " + rs.getString("user"));
+                System.out.println("message = " + rs.getString("message"));
+            }
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-
-
+    
     public void openDatabase() {
         try {
-            Class.forName("org.sqlite.JDBC");
+            //Class.forName("org.sqlite.JDBC.Driver");
             Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
             Statement stat = conn.createStatement();
+            stat.executeUpdate("drop table if exists chatlog;");
             stat.executeUpdate("create table chatlog (user, message);");
+            System.out.println("Created chatlog");
 
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
